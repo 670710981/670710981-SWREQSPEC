@@ -14,7 +14,7 @@
 - ไฟล์ที่แตะ: `backend/app/db/models.py`, `backend/app/db/session.py`, `backend/app/db/migrations/001_init.py`, `backend/tests/conftest.py`
 - ต้องทำหลัง: ไม่มี
 - เสร็จเมื่อ: migration สร้างตาราง `slots`, `bookings` และ `audit_logs` ได้ โดย `bookings` ไม่มี `national_id` และทดสอบด้วย SQLite ได้
-- สถานะ: พร้อมทำ
+- สถานะ: เสร็จ รอทีมตรวจ
 
 ### T-02 ตั้งค่าโครง FastAPI และการรวม router
 - รองรับ: IF-IDP-01, FR-BKG-01, FR-BKG-04

@@ -24,3 +24,12 @@
 - ผลลัพธ์: `specs/001-booking/tasks.md` มี 18 tasks เรียงตามการพึ่งพา พร้อมตารางตรวจ AC และ Constraint ครบทุก ID
 - งานที่รอ Open Question: T-08, T-09, T-15, T-16, T-17 และ T-18 รอ Q-02 เรื่องรูปแบบและวิธีออกหมายเลขคิว
 - หมายเหตุ: ยังไม่เริ่มทำ task ใด ๆ และไม่เดาคำตอบของ Q-02
+
+---
+
+## 2569-09-23 คำสั่ง: /implement T-01 specs/001-booking/tasks.md
+
+- ไฟล์ที่สร้างหรือแก้: `backend/app/db/models.py`, `backend/app/db/session.py`, `backend/app/db/migrations/001_init.py`, `backend/tests/conftest.py`, `specs/001-booking/tasks.md`
+- ผล test: SQLite smoke test ผ่าน สร้างตาราง `slots`, `bookings`, `audit_logs` ครบ และยืนยันว่า `bookings` ไม่มี `national_id`; `pytest --collect-only -q` ไม่พบ test จึงจบด้วย code 5
+- Constraint ที่ทำให้เป็นจริง: `CON-TECH-01` รองรับ engine ผ่าน `DATABASE_URL` และ migration; `DOM-PDPA-01` มีตาราง `audit_logs` พร้อมผู้เข้าถึง เวลา และ HN; `IF-HIS-01` โมเดล `bookings` เก็บ `hn` และไม่มี `national_id`
+- สิ่งที่เกือบต้องเดา: รูปแบบและวิธีออก `queue_no` ยังติด `Q-02` จึงเก็บคอลัมน์เป็น nullable และไม่กำหนดวิธีออกเลข
