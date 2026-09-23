@@ -14,7 +14,7 @@
 - ไฟล์ที่แตะ: `backend/app/db/models.py`, `backend/app/db/session.py`, `backend/app/db/migrations/001_init.py`, `backend/tests/conftest.py`
 - ต้องทำหลัง: ไม่มี
 - เสร็จเมื่อ: migration สร้างตาราง `slots`, `bookings` และ `audit_logs` ได้ โดย `bookings` ไม่มี `national_id` และทดสอบด้วย SQLite ได้
-- สถานะ: เสร็จ รอทีมตรวจ
+- สถานะ: เสร็จ
 
 ### T-02 ตั้งค่าโครง FastAPI และการรวม router
 - รองรับ: IF-IDP-01, FR-BKG-01, FR-BKG-04
@@ -110,7 +110,7 @@
 - ไฟล์ที่แตะ: `frontend/src/pages/SlotPicker.jsx`, `frontend/src/App.jsx`, `frontend/src/api/client.js`, `frontend/src/__tests__/SlotPicker.test.jsx`
 - ต้องทำหลัง: ไม่มี
 - เสร็จเมื่อ: หน้าจอใช้ API จำลองแสดงวัน ช่วงเวลา และที่นั่งคงเหลือภายใน 30 วัน และโหลดข้อมูลใหม่เมื่อเปลี่ยนแพ็กเกจ
-- สถานะ: พร้อมทำ
+- สถานะ: เสร็จ รอทีมตรวจ
 
 ### T-14 สร้างหน้าจอยืนยันและข้อเสนอช่วงเวลาใหม่
 - รองรับ: FR-BKG-03, FR-BKG-04

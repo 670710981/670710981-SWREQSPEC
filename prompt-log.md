@@ -33,3 +33,12 @@
 - ผล test: SQLite smoke test ผ่าน สร้างตาราง `slots`, `bookings`, `audit_logs` ครบ และยืนยันว่า `bookings` ไม่มี `national_id`; `pytest --collect-only -q` ไม่พบ test จึงจบด้วย code 5
 - Constraint ที่ทำให้เป็นจริง: `CON-TECH-01` รองรับ engine ผ่าน `DATABASE_URL` และ migration; `DOM-PDPA-01` มีตาราง `audit_logs` พร้อมผู้เข้าถึง เวลา และ HN; `IF-HIS-01` โมเดล `bookings` เก็บ `hn` และไม่มี `national_id`
 - สิ่งที่เกือบต้องเดา: รูปแบบและวิธีออก `queue_no` ยังติด `Q-02` จึงเก็บคอลัมน์เป็น nullable และไม่กำหนดวิธีออกเลข
+
+---
+
+## 2569-09-23 คำสั่ง: /implement T-13 specs/001-booking/tasks.md
+
+- ไฟล์ที่สร้างหรือแก้: `frontend/src/pages/SlotPicker.jsx`, `frontend/src/App.jsx`, `frontend/src/api/client.js`, `frontend/src/__tests__/SlotPicker.test.jsx`, `specs/001-booking/tasks.md`
+- ผล test: `npm test -- --run src/__tests__/SlotPicker.test.jsx` ผ่าน 2 tests ใน 1 test file
+- Constraint ที่เกี่ยวข้อง: ไม่มี Constraint โดยตรง; หน้าจอใช้ API จำลองตาม plan และรองรับ FR-BKG-01, FR-BKG-06, ASM-02
+- สิ่งที่เกือบต้องเดา: รูปแบบ response ของ `GET /slots` plan ระบุเป็นรายการช่วงเวลา จึงรองรับทั้ง array และ `{ slots: [...] }` เพื่อใช้กับ API จำลอง โดยไม่ได้กำหนดกติกาใหม่

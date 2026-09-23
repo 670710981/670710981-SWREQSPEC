@@ -4,6 +4,7 @@
 const BASE = import.meta.env.VITE_API_BASE ?? '/api'
 
 export const api = {
+  // เรียกช่วงเวลาว่างตามแพ็กเกจเพื่อรองรับ FR-BKG-01 และ FR-BKG-06
   async getSlots({ dateFrom, packageCode }) {
     const q = new URLSearchParams({ date_from: dateFrom, package_code: packageCode })
     const res = await fetch(`${BASE}/slots?${q}`)
