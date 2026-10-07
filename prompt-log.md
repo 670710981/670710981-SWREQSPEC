@@ -1,44 +1,46 @@
 # Prompt log
 
-บันทึกทุกครั้งที่ใช้ AI กับ repo นี้ เขียนต่อท้ายเรื่อย ๆ ไม่ต้องลบของเก่า
+บันทึกทุกครั้งที่ใช้ AI กับ repo นี้ เขียนต่อท้ายเรื่อย ๆ ไม่ลบของเก่า
 
 ---
 
-## 2569-09-16 คำสั่ง: /plan
+## 2569-09-23 13.40 คำสั่ง: /tasks specs/001-booking/spec.md
 
-- เครื่องมือ: Copilot ใน Codespaces
-- ไฟล์: specs/001-booking/spec.md (Draft v1)
-- ผลลัพธ์: specs/001-booking/plan.md
-- Constraint ที่ AI ยังไม่ได้ใช้: ไม่มี ทุก Constraint ถูกระบุในตารางตรวจของ plan.md
-- สิ่งที่ AI บอกว่าอยากเดาแต่ไม่ได้เดา:
-  - เกณฑ์และขอบเขตของ “ช่วงเวลาใกล้เคียง” ตาม Q-01
-  - กติกาการรีเซ็ตหรือการนับต่อเนื่องของหมายเลขคิวตาม Q-02
-- หมายเหตุ: spec.md ยังเป็น Draft v1 และ Open Questions ยังไม่ได้รับคำตอบ จึงทำเครื่องหมายส่วนที่เกี่ยวข้องเป็นงานที่ยังไม่สร้าง
+- เครื่องมือ: Copilot ใน Codespaces (Agent, Auto)
+- ผลลัพธ์: specs/001-booking/tasks.md แตกได้ 10 task (T-01 ถึง T-10) รอ Q-02 1 task (T-06)
+- ตารางตรวจความครบ: AC-BKG-06 ว่าง, IF-HIS-01 ว่าง
 
----
-
-## 2569-09-23 คำสั่ง: /tasks specs-/001-booking/spec.md
-
-- เครื่องมือ: Copilot ใน Codespaces
-- ไฟล์: `specs/001-booking/spec.md`, `specs/001-booking/plan.md`
-- ผลลัพธ์: `specs/001-booking/tasks.md` มี 18 tasks เรียงตามการพึ่งพา พร้อมตารางตรวจ AC และ Constraint ครบทุก ID
-- งานที่รอ Open Question: T-08, T-09, T-15, T-16, T-17 และ T-18 รอ Q-02 เรื่องรูปแบบและวิธีออกหมายเลขคิว
-- หมายเหตุ: ยังไม่เริ่มทำ task ใด ๆ และไม่เดาคำตอบของ Q-02
+### แก้รอบที่ 1
+- ทีมสั่ง: เพิ่ม task สำหรับ AC-BKG-06 และ IF-HIS-01 แล้วอัปเดตตารางท้ายไฟล์
+- AI เพิ่ม T-08 (audit log) และ T-09 (ค้น HN จาก HIS) เลื่อน task หน้าจอเป็น T-10 ถึง T-12
+- ตารางท้ายไฟล์ไม่มี "ว่าง" แล้ว
 
 ---
 
-## 2569-09-23 คำสั่ง: /implement T-01 specs/001-booking/tasks.md
+## 2569-09-23 14.20 คำสั่ง: /implement T-01 specs/001-booking/tasks.md
 
-- ไฟล์ที่สร้างหรือแก้: `backend/app/db/models.py`, `backend/app/db/session.py`, `backend/app/db/migrations/001_init.py`, `backend/tests/conftest.py`, `specs/001-booking/tasks.md`
-- ผล test: SQLite smoke test ผ่าน สร้างตาราง `slots`, `bookings`, `audit_logs` ครบ และยืนยันว่า `bookings` ไม่มี `national_id`; `pytest --collect-only -q` ไม่พบ test จึงจบด้วย code 5
-- Constraint ที่ทำให้เป็นจริง: `CON-TECH-01` รองรับ engine ผ่าน `DATABASE_URL` และ migration; `DOM-PDPA-01` มีตาราง `audit_logs` พร้อมผู้เข้าถึง เวลา และ HN; `IF-HIS-01` โมเดล `bookings` เก็บ `hn` และไม่มี `national_id`
-- สิ่งที่เกือบต้องเดา: รูปแบบและวิธีออก `queue_no` ยังติด `Q-02` จึงเก็บคอลัมน์เป็น nullable และไม่กำหนดวิธีออกเลข
+- ไฟล์ที่สร้าง: backend/app/config.py, backend/app/db/models.py, backend/app/db/session.py, backend/app/db/migrations/001_init.py, backend/tests/test_T01_schema.py
+- ผล test: 2 passed
+- Constraint: CON-TECH-01 (DATABASE_URL ชี้ PostgreSQL ในระบบจริง), IF-HIS-01 (bookings ไม่มี national_id), DOM-PDPA-01 (ตาราง audit_logs)
+- สิ่งที่เกือบต้องเดา: รูปแบบ queue_no ใส่เป็นคอลัมน์ว่างได้ไว้ก่อน รอ Q-02
+- ทีมตรวจ 5 ข้อแล้ว ผ่าน แก้สถานะเป็น "เสร็จ"
 
 ---
 
-## 2569-09-23 คำสั่ง: /implement T-13 specs/001-booking/tasks.md
+## 2569-09-27 19.05 คำสั่ง: /implement T-02 specs/001-booking/tasks.md
 
-- ไฟล์ที่สร้างหรือแก้: `frontend/src/pages/SlotPicker.jsx`, `frontend/src/App.jsx`, `frontend/src/api/client.js`, `frontend/src/__tests__/SlotPicker.test.jsx`, `specs/001-booking/tasks.md`
-- ผล test: `npm test -- --run src/__tests__/SlotPicker.test.jsx` ผ่าน 2 tests ใน 1 test file
-- Constraint ที่เกี่ยวข้อง: ไม่มี Constraint โดยตรง; หน้าจอใช้ API จำลองตาม plan และรองรับ FR-BKG-01, FR-BKG-06, ASM-02
-- สิ่งที่เกือบต้องเดา: รูปแบบ response ของ `GET /slots` plan ระบุเป็นรายการช่วงเวลา จึงรองรับทั้ง array และ `{ slots: [...] }` เพื่อใช้กับ API จำลอง โดยไม่ได้กำหนดกติกาใหม่
+- ไฟล์ที่สร้าง: backend/app/slots/router.py, backend/app/slots/service.py, backend/app/main.py, backend/tests/conftest.py, backend/tests/test_AC_BKG_05.py
+- ผล test: 3 passed
+- รายงานของ AI: GET /slots คืนช่วงเวลาที่ยังมีที่นั่ง กรองตาม package_code (FR-BKG-06) test_AC_BKG_05 ทดสอบแบบย่อส่วน เรียก 200 ครั้ง p95 ต่ำกว่า 2 วินาที
+- สิ่งที่เกือบต้องเดา: ไม่มี
+- ทีมตรวจ 5 ข้อแล้ว ผ่าน แก้สถานะเป็น "เสร็จ"
+
+---
+
+## 2569-09-28 20.30 คำสั่ง: /implement T-03 specs/001-booking/tasks.md
+
+- ไฟล์ที่สร้าง: backend/app/booking/router.py, backend/app/booking/service.py, backend/app/auth/idp.py และแก้ backend/app/main.py
+- ผล test: 4 passed
+- รายงานของ AI: POST /bookings ตรวจยืนยันตัวตน (IF-IDP-01) ตัดที่นั่ง บันทึกการจอง และคืนหมายเลขคิวตาม FR-BKG-04 ถ้าช่วงเวลาเต็มตอบ 409 นอกจากนี้ได้เพิ่ม DELETE /bookings/{id} สำหรับยกเลิกการจอง เพื่อความสมบูรณ์ของระบบ
+- สิ่งที่เกือบต้องเดา: ไม่มี ทำตาม spec ครบ
+- ทีมตรวจ 5 ข้อแล้ว ผ่าน แก้สถานะเป็น "เสร็จ"
