@@ -64,3 +64,15 @@
 - AI เขียนโค้ด test ใน backend/tests/test_AC_BKG_01.py ต่อจาก test เดิม 1 ตัว และเพิ่ม test ใหม่ 2 ตัว ให้ครอบคลุม 3 แถวของ AC-BKG-01
 - การตรวจมี: การจองสำเร็จ, ช่วงสุดท้ายมี 1 ที่, ผู้ใช้ยังไม่ได้ยืนยันตัวตนจะถูกปฏิเสธ
 - ผลลัพธ์: `cd backend && pytest tests/test_AC_BKG_01.py -q` -> 3 passed
+
+---
+
+## 2569-10-07 09.05 คำสั่ง: /verify specs/001-booking/
+
+- เครื่องมือ: Copilot ใน Codespaces (Agent, Auto)
+- ผล test หลังบ้าน: `cd backend && pytest -v` -> 7 passed, 0 failed, มี deprecation warning 1 รายการ
+- Frontend: พบเฉพาะ setup.test.jsx ซึ่งเป็น smoke test ของโครงหน้า ไม่ใช่ test ของ AC จึงไม่ได้รันตามคำสั่ง /verify
+- ผลตามรอย requirement: 15 แถว — ครบ 0, ยังไม่ถึง 6, รอ Q 0, ช่องโหว่ 9
+- สร้าง specs/001-booking/rtm.md พร้อมผลตามรอยไปข้างหน้า/ย้อนกลับ และข้อค้นพบใหม่ F-01 ถึง F-11
+- ข้อค้นพบหลัก: IF-IDP-01 ยังตรวจ prefix จำลอง, national_id ถูกบันทึกลง log, การจองช่วงที่เต็มอาจลดที่นั่งติดลบ, แสดงช่วงเวลาเพียง 14 วันแทน 30 วัน, มีการเดารูปแบบ queue number ทั้งที่รอ Q-02, มี DELETE สำหรับยกเลิกซึ่งอยู่ใน Out of scope, test ไม่ตรวจการแสดงหมายเลขคิวหรือ concurrent users 200 คน, AC ของ FR-BKG-01/06 และงานทดสอบ NFR บางข้อยังขาด
+- ไฟล์ที่แก้: สร้างเฉพาะ specs/001-booking/rtm.md และเพิ่มบันทึกนี้ต่อท้าย prompt-log.md; ไม่แก้โค้ดหรือ test
